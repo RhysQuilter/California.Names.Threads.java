@@ -25,7 +25,7 @@ public class SearchCallable implements Callable<Double> {
 
     @Override
     public Double call() throws Exception {
-		//Thread.sleep(30_000);
+	
 		System.out.println("Search Callable begins at:"+ new Date());
         int totals[] = new int[2];
         

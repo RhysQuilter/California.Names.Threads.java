@@ -40,7 +40,7 @@ public class Main {
 		/*Task one: Future */
 		nf.setMaximumFractionDigits(2);
 		System.out.println("Percentage Diff " + nf.format(searchFuture.get()));
-
+	Thread.sleep(30_000);
 		executorService.shutdown();
 
 	}
