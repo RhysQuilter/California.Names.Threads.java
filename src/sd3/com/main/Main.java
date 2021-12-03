@@ -8,31 +8,40 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import static sd3.com.IO.FileIO.parseFile;
-import sd3.com.model.Name;
+import sd3.com.model.NameRecord;
 
 public class Main {
 
-	static List<Name> list = new ArrayList();
+	static List<NameRecord> list = new ArrayList();
 	static NumberFormat nf = NumberFormat.getPercentInstance();
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
-		System.out.println("Main begins at:"+ new Date());
+		System.out.println("Main begins at:" + new Date());
 
-		//task 1
 		list = parseFile("CA.txt"); //reading the list of names from the file
 
-		ExecutorService exe = Executors.newCachedThreadPool();
+		//ExecutorService executorService = Executors.newCachedThreadPool();
+		int numberOfThreads = 3;
+		final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(numberOfThreads);
+		/*Task one*/
 		SearchCallable searchCallable = new SearchCallable(list, "Paul", 2000, 2017);
-		Future<Double> searchFuture = exe.submit(searchCallable);
+		Future<Double> searchFuture = executorService.submit(searchCallable);
+		/*Task two*/
+		PrintRunnable printRunnable = new PrintRunnable(list, "Zack");
+		executorService.submit(printRunnable);
+		/*Task three*/
+		int initialDelay = 5;//after an initial delay of 5 seconds.
+		int delay = 3;// Runnable that will execute every 3 seconds
+		executorService.scheduleWithFixedDelay(new Task3Runnable(list), initialDelay, delay, TimeUnit.SECONDS);
 
+		/*Task one: Future */
 		nf.setMaximumFractionDigits(2);
-		System.out.println("Waiting 1 at:"+ new Date());
 		System.out.println("Percentage Diff " + nf.format(searchFuture.get()));
-		System.out.println("Waiting 2 at:"+ new Date());
-		exe.submit(new Print(list, "Zack")); // printing out 
 
-		exe.shutdown();
+		executorService.shutdown();
 
 	}
 

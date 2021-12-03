@@ -3,7 +3,7 @@ package sd3.com.main;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
-import sd3.com.model.Name;
+import sd3.com.model.NameRecord;
 
 /**
  *
@@ -11,12 +11,12 @@ import sd3.com.model.Name;
  */
 public class SearchCallable implements Callable<Double> {
 
-    List<Name> list;
+    List<NameRecord> list;
     String name; //accepting the three arguments
     int y1;
     int y2;
 
-    public SearchCallable(List<Name> list, String name, int y1, int y2) {
+    public SearchCallable(List<NameRecord> list, String name, int y1, int y2) {
         this.name = name;
         this.list = list;
         this.y1 = y1;
@@ -25,11 +25,11 @@ public class SearchCallable implements Callable<Double> {
 
     @Override
     public Double call() throws Exception {
-		Thread.sleep(15_000);
+		//Thread.sleep(30_000);
 		System.out.println("Search Callable begins at:"+ new Date());
         int totals[] = new int[2];
         
-        for (Name aName : list) {
+        for (NameRecord aName : list) {
             if (aName.getYear() == y1 && aName.getName().equalsIgnoreCase(name)) {
                totals[0] = aName.getOccurrences();
             }

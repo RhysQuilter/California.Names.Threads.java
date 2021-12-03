@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.List;
-import sd3.com.model.Name;
+import sd3.com.model.NameRecord;
 
 /**
  *
@@ -13,8 +13,8 @@ import sd3.com.model.Name;
  */
 public class FileIO {
     
-    public static List<Name> parseFile(String file) {
-        List<Name> list = new ArrayList();
+    public static List<NameRecord> parseFile(String file) {
+        List<NameRecord> list = new ArrayList();
         
         FileReader frs;
         StreamTokenizer in;
@@ -68,7 +68,7 @@ public class FileIO {
 
                 in.nextToken();
 
-                list.add(new Name(timeZone, gender, year, name, occurrences));
+                list.add(new NameRecord(timeZone, gender, year, name, occurrences));
 
             }
         } catch (IOException ex) {

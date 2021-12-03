@@ -1,13 +1,13 @@
 package sd3.com.model;
 
-public class Name {
+public class NameRecord {
     private String timeZone;
     private String gender; //could use a char instead of a String
     private int year;
     private String name;
     private int occurrences;
 
-    public Name(String timeZone, String gender, int year, String Name, int occurrences) {
+    public NameRecord(String timeZone, String gender, int year, String Name, int occurrences) {
         this.timeZone = timeZone;
         this.gender = gender;
         this.year = year;
