@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,8 +41,13 @@ public class Main {
 		/*Task one: Future */
 		nf.setMaximumFractionDigits(2);
 		System.out.println("Percentage Diff " + nf.format(searchFuture.get()));
-	Thread.sleep(30_000);
-		executorService.shutdown();
+		try ( var scanner = new Scanner(System.in);) {
+			System.out.println("Press any key to quit.");
+			scanner.next();
+		}
+
+		executorService.shutdownNow();
+		System.out.println("Goodbye.");
 
 	}
 
